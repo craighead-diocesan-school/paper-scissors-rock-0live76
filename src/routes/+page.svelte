@@ -3,50 +3,65 @@
   import Footer from "$lib/Footer.svelte"
 
   let index = " "
+  let source = ""
+  let resultIndex = " "
   let computerPlay = " "
   let usersPlay = " "
-  let userStatus = " "
   let actions = ["paper", "scissors", "rock"]
-
+  let results = ["You Won!", "You Lost", "It was a draw"]
   function paperSelect() {
     usersPlay = "paper"
+    source = "paper.png"
+    runGame()
   }
   function scissorSelect() {
     usersPlay = "scissor"
+    source = "scissors.png"
+
+    runGame()
   }
   function rockSelect() {
     usersPlay = "rock"
+    source = "rock.png"
+    runGame()
   }
   function runGame() {
-    index = " "
+    resultIndex = Number(resultIndex)
     computerPlay = " "
-    usersPlay = " "
-    userStatus = " "
     index = Math.floor(Math.random() * 3)
     computerPlay = actions[index]
-    if ((usersPlay = "paper")) {
-      if ((computerPlay = "scissors")) {
-        userStatus = "You lost!"
-      } else if ((computerPlay = paper)) {
-        userStatus = "It was a draw"
+    if (usersPlay == "paper") {
+      if (computerPlay == "rock") {
+        resultIndex = 0
+        console.log("You Won")
+      } else if (computerPlay == "scissors") {
+        resultIndex = 1
+        console.log("You lost")
       } else {
-        userStatus = "You won!"
+        resultIndex = 2
+        console.log("it was a draw")
       }
-    } else if ((usersPlay = "scissors")) {
-      if ((computerPlay = "rock")) {
-        userStatus = "You lost!"
-      } else if ((computerPlay = "scissors")) {
-        userStatus = "It was a draw"
+    } else if (usersPlay == "scissor") {
+      if (computerPlay == "paper") {
+        resultIndex = 0
+        console.log("You Won")
+      } else if (computerPlay == "rock") {
+        resultIndex = 1
+        console.log("You lost")
       } else {
-        userStatus = "You won!"
+        resultIndex = 2
+        console.log("it was a draw")
       }
     } else {
-      if ((computerPlay = "paper")) {
-        userStatus = "You lost!"
-      } else if ((computerPlay = "rock")) {
-        userStatus = "It was a draw"
+      if (computerPlay == "scissor") {
+        resultIndex = 0
+        console.log("You Won")
+      } else if (computerPlay == "paper") {
+        resultIndex = 1
+        console.log("You lost")
       } else {
-        userStatus = "You won!"
+        resultIndex = 2
+        console.log("it was a draw")
       }
     }
   }
@@ -55,38 +70,25 @@
 <Header />
 
 <main>
-
-
   <h2>Test your luck against the computer!</h2>
-  <div class="columns"></div>
-  <div class="column">
-  <p>Computer played: {actions[index]}</p>
-  <img src={computerPlay}>
-</div>
-<div class="column">
-  <div class="buttons">
-    <button
-      on:click={() => {
-        paperSelect()
-        runGame()
-      }}>Paper</button
-    >
-    <button
-      on:click={() => {
-        scissorSelect()
-        runGame()
-      }}>Scissors</button
-    >
-    <button
-      on:click={() => {
-        rockSelect()
-        runGame()
-      }}>Rock</button
-    >
+  <div class="columns">
+    <div class="column">
+      <p>You Played: {usersPlay}</p>
+      <div class="buttons">
+        <button on:click={paperSelect}>Paper</button>
+        <button on:click={scissorSelect}>Scissors</button>
+        <button on:click={rockSelect}>Rock</button>
+      </div>
+    </div>
+    <div class="column">
+      <img src={source} alt="" />
+    </div>
+    <div class="column">
+      <p>Computer Played: {computerPlay}</p>
+    </div>
   </div>
-</div>
-</div>
-  <p>{userStatus}</p>
+
+  <p>{results[resultIndex]}</p>
 </main>
 
 <Footer />
@@ -101,18 +103,6 @@
     font-style: italic;
     font-size: 160%;
     padding-bottom: 3%;
-  }
-
-  button {
-    padding: 4%;
-    margin-right: 2%;
-    width: 15%;
-    font-size: 140%;
-  }
-
-  .buttons {
-    align-content: center;
-    padding-left: 30%;
-    padding-top: 20%;
+    text-align: center;
   }
 </style>
