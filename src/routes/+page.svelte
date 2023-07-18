@@ -1,16 +1,19 @@
 <script>
   import Header from "$lib/Header.svelte"
   import Footer from "$lib/Footer.svelte"
-
+  //Default Variables
   let index = " "
   let source = "placeholder.png"
   let computerImage = "placeholder.png"
+  //Outcome is set to default "Press Button"
   let resultIndex = 3
+  const numberOfChoices = 3
   let computerPlay = " "
   let usersPlay = " "
   let actions = ["paper", "scissors", "rock"]
   let results = ["You Won!", "You Lost", "It was a draw", "Press a button to start!"]
 
+  //These functions apply the user's choice to the usersPlay variable and then start the game.
   function paperSelect() {
     usersPlay = "paper"
     source = "paper.png"
@@ -27,12 +30,14 @@
     source = "rock.png"
     runGame()
   }
+
   function runGame() {
-    resultIndex = Number(resultIndex)
+    //Computer selects a random play from the array
     computerPlay = " "
-    index = Math.floor(Math.random() * 3)
+    index = Math.floor(Math.random() * numberOfChoices)
     computerPlay = actions[index]
     computerImage = computerPlay + ".png"
+    //Compares user play to computer play and selects appropriate outcome.
     if (usersPlay == "paper") {
       if (computerPlay == "rock") {
         resultIndex = 0
